@@ -1,5 +1,7 @@
+import React from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
+import Collections from './Collections';
 
 function PageContent() {
     const { publicKey } = useWallet();
@@ -8,7 +10,8 @@ function PageContent() {
         return (
             <div>
                 <span id="wallet"><WalletDisconnectButton /></span>
-                <h1>You are now connected!</h1>
+                <h1>You are now connected to {publicKey.toBase58()}</h1>
+                <Collections />
             </div>
         );
     } else {
