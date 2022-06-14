@@ -1,40 +1,59 @@
-import React, { Fragment } from "react";
-import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import collections from '../../data/collections';
 
-class Collections extends React.Component {
+const MAX_OPTIONS = 100;
 
-    onSearch() {
-        console.log('onSearch', arguments);
+export default function Collections() {
+
+    function handleFilter(options, state) {
+        if(state.inputValue.length > 2)
+        {
+            const text = state.inputValue.toLowerCase();
+            console.log('finding', text);
+            const matches = collections.filter((c) => {
+                // console.log(c.id, c.name);
+                return (c.name.toLowerCase().indexOf(text) !== -1 || c.id.toLowerCase().indexOf(text) !== -1 );
+            });
+            console.log('found', matches.length);
+            return matches.length > MAX_OPTIONS ? matches.slice(0, MAX_OPTIONS) : matches;
+        } else {
+            return [];
+        }
     }
 
-    render() {
-        return <AsyncTypeahead
-            onSearch={this.onSearch}
-            id="collection"
-            filterBy={['name', 'id']}
-            labelKey="name"
-            options={collections}
-            isLoading={false}
-            minLength={3}
-            paginate={true}
-            placeholder="Select NFT collection"
-            renderMenuItemChildren={(option, props) => (
-                <Fragment>
-                    <img
-                        alt={option.name}
-                        src={option.image}
-                        style={{
-                            height: '24px',
-                            marginRight: '10px',
-                            width: '24px',
-                        }}
-                    />
-                    <span>{option.name}</span>
-                </Fragment>
-            )}
+    return (
+    <Autocomplete
+      id="collection-select-demo"
+      sx={{ width: 400 }}
+      options={[]}
+      filterOptions={handleFilter}
+      autoHighlight
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option) => (
+        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props} key={option.id}>
+          <img
+            loading="lazy"
+            width="20"
+            src={option.image}
+            srcSet={`${option.image} 2x`}
+            alt={option.name}
+          />
+          {option.name}
+        </Box>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Choose a collection"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: 'new-password', // disable autocomplete and autofill
+          }}
         />
-    }
+      )}
+    />
+  );
 }
-
-export default Collections;

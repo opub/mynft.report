@@ -10,6 +10,12 @@
         "build": "webpack --mode=production"
     },
     "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
+        "@mui/icons-material": "^5.8.4",
+        "@mui/material": "^5.8.4",
+        "@mui/styled-engine": "^5.8.0",
+        "@mui/styles": "^5.8.4",
         "@solana/wallet-adapter-base": "^0.9.5",
         "@solana/wallet-adapter-react": "^0.15.5",
         "@solana/wallet-adapter-react-ui": "^0.9.7",
