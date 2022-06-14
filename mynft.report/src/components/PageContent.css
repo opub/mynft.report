@@ -1,0 +1,9 @@
+.wrapper {
+    height: 100%;
+    padding: 100px;
+    display: flex;
+}
+
+.instructions {
+    padding-bottom: 50px;
+}

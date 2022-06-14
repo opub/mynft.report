@@ -12,6 +12,7 @@ import {
     TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 require('@solana/wallet-adapter-react-ui/styles.css');
+import './WalletWrapper.css';
 
 function WalletWrapper() {
     const network = WalletAdapterNetwork.Mainnet;

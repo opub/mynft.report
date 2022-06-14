@@ -1,0 +1,10 @@
+.collections {
+    border: none;
+    border-radius: 12px;
+    background: #7094db;
+    color: #ffffff;
+}
+
+#collection-select-demo-label {
+    color: #ffffff;
+}

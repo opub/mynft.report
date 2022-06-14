@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import collections from '../../data/collections';
+import './Collections.css';
 
 const MAX_OPTIONS = 100;
 
@@ -30,6 +31,7 @@ export default function Collections() {
       sx={{ width: 400 }}
       options={[]}
       filterOptions={handleFilter}
+      noOptionsText="No matches"
       autoHighlight
       getOptionLabel={(option) => option.name}
       renderOption={(props, option) => (
@@ -46,6 +48,7 @@ export default function Collections() {
       )}
       renderInput={(params) => (
         <TextField
+          className="collections"
           {...params}
           label="Choose a collection"
           inputProps={{

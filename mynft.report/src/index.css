@@ -1,6 +1,7 @@
 html {
     scroll-behavior: smooth;
-    background: linear-gradient(#003399, #1a66ff);
+    background-color: #3366cc;
+    background: linear-gradient(#24478f, #3366cc);
     background-attachment: fixed;
 }
 
@@ -31,7 +32,7 @@ a.link:link,
 .link:link,
 a.link:visited,
 .link:visited {
-    color: #e6eeff;
+    color: #ebf0fa;
     transition: color 150ms ease-in !important;
 }
 
@@ -39,5 +40,5 @@ a.link:hover,
 .link:hover,
 a.link:focus,
 .link:focus {
-    color: #ccddff;
+    color: #ebf0fa;
 }

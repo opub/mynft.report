@@ -1,0 +1,11 @@
+button.wallet-adapter-button {
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+}
+
+button.wallet-adapter-button-trigger {
+    background-color: #7094db;
+}
+
+button.wallet-adapter-button:not([disabled]):hover {
+    background-color: #193366;
+}
