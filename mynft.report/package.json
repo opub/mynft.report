@@ -1,58 +1,44 @@
 {
-  "name": "mynft.report",
-  "version": "0.1.0",
-  "description": "Some simple Solana NFT reporting information based on your web3 wallet",
-  "author": "Ted O'Connor",
-  "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "@solana/wallet-adapter-base": "^0.9.5",
-    "@solana/wallet-adapter-react": "^0.15.5",
-    "@solana/wallet-adapter-react-ui": "^0.9.7",
-    "@solana/wallet-adapter-wallets": "^0.16.1",
-    "@solana/web3.js": "^1.42.0",
-    "axios": "^0.27.2",
-    "axios-request-throttle": "^1.0.0",
-    "react": "^18.1.0",
-    "react-bootstrap-typeahead": "^6.0.0-rc.1",
-    "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "eject": "react-app-rewired eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "assert": "^2.0.0",
-    "buffer": "^6.0.3",
-    "crypto-browserify": "^3.12.0",
-    "https-browserify": "^1.0.0",
-    "os-browserify": "^0.3.0",
-    "process": "^0.11.10",
-    "react-app-rewired": "^2.2.1",
-    "stream": "^0.0.2",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
-    "url": "^0.11.0"
-  }
+    "name": "mynft.report",
+    "version": "0.1.0",
+    "description": "Some simple Solana NFT reporting information based on your web3 wallet",
+    "author": "Ted O'Connor",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "start": "webpack-dev-server --mode=development --open --hot",
+        "build": "webpack --mode=production"
+    },
+    "dependencies": {
+        "@solana/wallet-adapter-base": "^0.9.5",
+        "@solana/wallet-adapter-react": "^0.15.5",
+        "@solana/wallet-adapter-react-ui": "^0.9.7",
+        "@solana/wallet-adapter-wallets": "^0.16.1",
+        "@solana/web3.js": "^1.42.0",
+        "react": "^18.1.0",
+        "react-bootstrap-typeahead": "^6.0.0-rc.1",
+        "react-dom": "^18.1.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.2",
+        "@babel/preset-env": "^7.18.2",
+        "@babel/preset-react": "^7.17.12",
+        "assert": "^2.0.0",
+        "babel-loader": "^8.2.5",
+        "buffer": "^6.0.3",
+        "copy-webpack-plugin": "^11.0.0",
+        "crypto-browserify": "^3.12.0",
+        "css-loader": "^6.7.1",
+        "html-webpack-plugin": "^5.5.0",
+        "https-browserify": "^1.0.0",
+        "os-browserify": "^0.3.0",
+        "process": "^0.11.10",
+        "stream": "^0.0.2",
+        "stream-browserify": "^3.0.0",
+        "stream-http": "^3.2.0",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.9.2"
+    }
 }
