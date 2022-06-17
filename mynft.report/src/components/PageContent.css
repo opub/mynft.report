@@ -7,3 +7,7 @@
 .instructions {
     padding-bottom: 50px;
 }
+
+.MuiToolbar-regular {
+    background-color: #24478f;
+}

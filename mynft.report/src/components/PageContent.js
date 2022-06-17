@@ -1,21 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
 import Collections from './Collections';
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import './PageContent.css';
 
-function PageContent() {
+function PageContent(props) {
+
     const { publicKey } = useWallet();
+    let collection = "";
+    let wallet = publicKey ? publicKey.toBase58() : "";
+
+    function handleCollectionChange(options, state) {
+        console.log('handleCollectionChange', options, state);
+        collection = state.id;
+    }
 
     if (publicKey) {
         return (
+            <Grid
+                className="wrapper"
+                container
+                spacing={1}
+                justify="center"
+                direction="column"
+            >
+                <AppBar position="absolute" color="inherit">
+                    <Toolbar>
+                        <Grid item xs={4}>
+                            <h1>My NFT Report</h1>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <Collections onCollectionChange={handleCollectionChange} />
+                        </Grid>
+                        <Grid item xs={2} align="right">
+                            <WalletDisconnectButton />
+                        </Grid>
+                    </Toolbar>
 
-            <div>
-                <span id="wallet"><WalletDisconnectButton /></span>
-                <h1>You are now connected to {publicKey.toBase58()}</h1>
-                <Collections />
-            </div>
+                    <div>Collection = {collection}</div>
+                    <div>Wallet = {wallet}</div>
+
+                </AppBar>
+            </Grid>
         );
     } else {
         return (

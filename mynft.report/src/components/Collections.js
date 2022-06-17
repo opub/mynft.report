@@ -7,7 +7,7 @@ import './Collections.css';
 
 const MAX_OPTIONS = 100;
 
-export default function Collections() {
+export default function Collections(props) {
 
     function handleFilter(options, state) {
         if(state.inputValue.length > 2)
@@ -31,6 +31,7 @@ export default function Collections() {
       sx={{ width: 400 }}
       options={[]}
       filterOptions={handleFilter}
+      onChange={props.onCollectionChange}
       noOptionsText="No matches"
       autoHighlight
       getOptionLabel={(option) => option.name}
