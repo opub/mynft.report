@@ -13,12 +13,9 @@ export default function Collections(props) {
         if(state.inputValue.length > 2)
         {
             const text = state.inputValue.toLowerCase();
-            console.log('finding', text);
             const matches = collections.filter((c) => {
-                // console.log(c.id, c.name);
                 return (c.name.toLowerCase().indexOf(text) !== -1 || c.id.toLowerCase().indexOf(text) !== -1 );
             });
-            console.log('found', matches.length);
             return matches.length > MAX_OPTIONS ? matches.slice(0, MAX_OPTIONS) : matches;
         } else {
             return [];
