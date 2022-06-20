@@ -1,10 +1,11 @@
 import React from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapter-react-ui';
-import Collections from './Collections';
 import Grid from '@mui/material/Grid';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import Collections from './Collections';
+import Results from './Results';
 import './PageContent.css';
 
 const withWallet = Component => props => {
@@ -51,8 +52,7 @@ class PageContent extends React.Component {
                         </Toolbar>
                     </AppBar>
 
-                    <div>Collection = {this.state.collection}</div>
-                    <div>Wallet = {this.props.wallet}</div>
+                    <Results collection={this.state.collection} wallet={this.props.wallet} />
                 </Grid>
             );
         } else {

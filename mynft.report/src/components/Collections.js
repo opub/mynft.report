@@ -24,7 +24,7 @@ export default function Collections(props) {
 
     return (
     <Autocomplete
-      id="collection-select-demo"
+      id="collection-select"
       sx={{ width: 400 }}
       options={[]}
       filterOptions={handleFilter}
