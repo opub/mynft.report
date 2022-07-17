@@ -12,6 +12,7 @@
     "dependencies": {
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
+        "@metaplex/js": "^4.12.0",
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.8.4",
         "@mui/styled-engine": "^5.8.0",
@@ -20,10 +21,13 @@
         "@solana/wallet-adapter-react": "^0.15.5",
         "@solana/wallet-adapter-react-ui": "^0.9.7",
         "@solana/wallet-adapter-wallets": "^0.16.1",
-        "@solana/web3.js": "^1.42.0",
+        "@solana/web3.js": "^1.47.3",
+        "axios": "^0.27.2",
+        "axios-request-throttle": "^1.0.0",
         "react": "^18.1.0",
         "react-bootstrap-typeahead": "^6.0.0-rc.1",
-        "react-dom": "^18.1.0"
+        "react-dom": "^18.1.0",
+        "react-spinners": "^0.13.3"
     },
     "devDependencies": {
         "@babel/core": "^7.18.2",
