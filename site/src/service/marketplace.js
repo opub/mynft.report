@@ -1,11 +1,10 @@
-const { LAMPORTS_PER_SOL } = require("@solana/web3.js");
-const { get, sleep, bs58toHex } = require('../../mynft.report/src/common/util');
-const log = require('../../mynft.report/src/common/logging');
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { get, sleep, bs58toHex, requestsPerSecond } from '../common/util';
+import * as log from '../common/logging';
 
 const ME_API = 'https://api-mainnet.magiceden.dev/v2';
-const ME_RPS = 4;
 
-exports.getExchange = function (tx) {
+export function getExchange(tx) {
     const progId = tx.transaction.message.instructions.at(-1).programId.toBase58();
     const sig = tx.transaction.signatures[0];
     let exchange;
@@ -64,14 +63,14 @@ exports.getExchange = function (tx) {
     }
 }
 
-exports.getCollectionsStats = async function (creators) {
+export async function getCollectionsStats(creators) {
     const collections = new Map();
     for (const [creator, mint] of creators) {
         try {
             const { data: token } = await get(`${ME_API}/tokens/${mint}`);
-            sleep(1000 / ME_RPS);
+            sleep(1000 / requestsPerSecond);
             const { data: stats } = await get(`${ME_API}/collections/${token.collection}/stats`);
-            sleep(1000 / ME_RPS);
+            sleep(1000 / requestsPerSecond);
             collections.set(creator, lamportsToSol(stats));
         }
         catch (e) {
@@ -154,6 +153,7 @@ function isSolanartPurchaseTx(tx) {
 function lamportsToSol(stats) {
     const metrics = ['floorPrice', 'avgPrice24hr', 'volumeAll'];
     for (const name of metrics) {
+        v
         if (stats[name]) {
             stats[name] = stats[name] / LAMPORTS_PER_SOL
         }

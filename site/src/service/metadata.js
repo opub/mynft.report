@@ -1,11 +1,11 @@
-const { programs } = require('@metaplex/js');
-const { getConnection } = require('./api');
-const { get, sleep } = require('../../mynft.report/src/common/util');
-const log = require('../../mynft.report/src/common/logging');
+import { programs } from '@metaplex/js';
+import { getConnection } from './api';
+import { get, sleep } from '../common/util';
+import * as log from '../common/logging';
 
 const { metadata: { Metadata } } = programs;
 
-exports.addMetadata = async function (nft) {
+export async function addMetadata(nft) {
     try {
         log.info('addMetadata', nft.mint);
 

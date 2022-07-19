@@ -4,7 +4,6 @@ import { WalletMultiButton, WalletDisconnectButton } from '@solana/wallet-adapte
 import Grid from '@mui/material/Grid';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Collections from './Collections';
 import Results from './Results';
 import './PageContent.css';
 
@@ -15,19 +14,6 @@ const withWallet = Component => props => {
 };
 
 class PageContent extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.handleCollectionChange = this.handleCollectionChange.bind(this);
-        this.state = {
-            collection: ""
-        };
-    }
-
-    handleCollectionChange(event, option) {
-        this.setState({ collection: option.id });
-    }
-
     render() {
         if (this.props.wallet) {
             return (
@@ -43,16 +29,13 @@ class PageContent extends React.Component {
                             <Grid item xs={4}>
                                 <h1>My NFT Report</h1>
                             </Grid>
-                            <Grid item xs={6} align="right">
-                                <Collections onCollectionChange={this.handleCollectionChange} />
-                            </Grid>
-                            <Grid item xs={2} align="right">
+                            <Grid item xs={8} align="right">
                                 <WalletDisconnectButton />
                             </Grid>
                         </Toolbar>
                     </AppBar>
 
-                    <Results collection={this.state.collection} wallet={this.props.wallet} />
+                    <Results wallet={this.props.wallet} />
                 </Grid>
             );
         } else {

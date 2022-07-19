@@ -1,4 +1,4 @@
-let logLevel = process.env.LOGLEVEL || 'info';
+let logLevel = 'info';
 
 const levels = {
     none: 0,
@@ -8,34 +8,33 @@ const levels = {
     debug: 4
 };
 
-exports.setLevel = function (level) {
+export function setLevel(level) {
     logLevel = level;
 }
 
-function willLog(level) {
+export function willLog(level) {
     return levels[level] <= levels[logLevel];
 }
-exports.willLog = willLog;
 
-exports.debug = function (...params) {
+export function debug(...params) {
     if (willLog('debug')) {
         writeLog('debug', params);
     }
 }
 
-exports.info = function (...params) {
+export function info(...params) {
     if (willLog('info')) {
         writeLog('info', params);
     }
 }
 
-exports.warn = function (...params) {
+export function warn(...params) {
     if (willLog('warn')) {
         writeLog('warn', params);
     }
 }
 
-exports.error = function (...params) {
+export function error(...params) {
     if (willLog('error')) {
         if (params && params.length > 0 && params[0] && params[0].stack && params[0].message) {
             let e = params[0];
@@ -57,6 +56,6 @@ function writeLog(level, params) {
 // make time local instead of UTC and remove T and Z from ISO format
 function formatDate() {
     let now = new Date();
-    now = new Date(now.getTime() - (now.getTimezoneOffset()*60*1000));
+    now = new Date(now.getTime() - (now.getTimezoneOffset() * 60 * 1000));
     return now.toISOString().replace('T', ' ').substring(0, 23);
 }

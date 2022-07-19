@@ -1,22 +1,20 @@
-const { Connection, PublicKey, LAMPORTS_PER_SOL } = require("@solana/web3.js");
-const { TOKEN_PROGRAM_ID } = require('@solana/spl-token');
-const { getExchange } = require('./marketplace');
-const { get } = require('../common/util');
-const log = require('../common/logging');
+import { Connection, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { getExchange } from './marketplace';
+import { get } from '../common/util';
+import * as log from '../common/logging';
 
 const SOL_PRICE_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=solana';
-const TEST_LIMIT = process.env.TEST_LIMIT || -1;
-
-const commitment = process.env.COMMITMENT || 'confirmed';
+const TEST_LIMIT = 20;
+const commitment = 'confirmed';
 const clusterURL = 'https://ssc-dao.genesysgo.net/';    // clusterApiUrl(process.env.CLUSTER || 'mainnet-beta');
 const connection = new Connection(clusterURL, { commitment });
 
-function getConnection() {
+export function getConnection() {
     return connection;
 }
-exports.getConnection = getConnection;
 
-exports.getSolanaPrice = async function () {
+export async function getSolanaPrice() {
     try {
         const headers = {
             Accepts: 'application/json'
@@ -29,7 +27,7 @@ exports.getSolanaPrice = async function () {
     }
 }
 
-exports.getSignatures = async function (address) {
+export async function getSignatures(address) {
     let signatures = [];
 
     try {
@@ -62,7 +60,7 @@ exports.getSignatures = async function (address) {
     return signatures;
 }
 
-exports.getTransactions = async function (address, signatures) {
+export async function getTransactions(address, signatures) {
     const CHUNK = 200;
     const nfts = new Map();
 
@@ -100,7 +98,7 @@ exports.getTransactions = async function (address, signatures) {
     return nfts;
 }
 
-exports.getHoldings = async function (address) {
+export async function getHoldings(address) {
     let holdings = [];
     try {
         const tokens = await connection.getParsedTokenAccountsByOwner(
@@ -125,7 +123,6 @@ exports.getHoldings = async function (address) {
     log.info('getHoldings found', holdings.length);
     return holdings;
 }
-
 
 function parseTransactionSale(tx, owner, exchange) {
     try {
