@@ -51,9 +51,13 @@ resource "aws_iam_role_policy_attachment" "proxy_lambda" {
 }
 
 resource "null_resource" "build" {
-    provisioner "local-exec" {
-        command = "cd lambda && env GOOS=linux GOARCH=amd64 go build -o bin/proxy"
-    }
+  triggers = {
+    "source_hash" = sha256("lambda/main.go")
+  }
+
+  provisioner "local-exec" {
+    command = "cd lambda && env GOOS=linux GOARCH=amd64 go build -o bin/proxy && cd -"
+  }
 }
 
 data "archive_file" "proxy" {
@@ -67,8 +71,7 @@ data "archive_file" "proxy" {
 resource "aws_cloudwatch_log_group" "proxy_lambda" {
   name              = "/aws/lambda/${var.prefix}proxy"
   retention_in_days = 14
-
-  tags = { "Name" = "${var.prefix}proxy" }
+  tags              = { "Name" = "${var.prefix}proxy" }
 }
 
 resource "aws_lambda_function" "proxy" {
@@ -79,6 +82,13 @@ resource "aws_lambda_function" "proxy" {
   source_code_hash = data.archive_file.proxy.output_base64sha256
   runtime          = "go1.x"
   role             = aws_iam_role.proxy_lambda.arn
+
+  environment {
+    variables = {
+      PATH   = var.path
+      TARGET = var.target
+    }
+  }
 
   depends_on = [
     aws_iam_role_policy_attachment.proxy_lambda,

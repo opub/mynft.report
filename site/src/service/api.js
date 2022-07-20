@@ -5,7 +5,7 @@ import { get } from '../common/util';
 import * as log from '../common/logging';
 
 const SOL_PRICE_URL = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=solana';
-const TEST_LIMIT = 20;
+const TEST_LIMIT = 5;
 const commitment = 'confirmed';
 const clusterURL = 'https://ssc-dao.genesysgo.net/';    // clusterApiUrl(process.env.CLUSTER || 'mainnet-beta');
 const connection = new Connection(clusterURL, { commitment });

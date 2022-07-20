@@ -2,7 +2,7 @@ import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { get, sleep, bs58toHex, requestsPerSecond } from '../common/util';
 import * as log from '../common/logging';
 
-const ME_API = 'https://api-mainnet.magiceden.dev/v2';
+const ME_API = 'https://proxy.mynft.report/api';
 
 export function getExchange(tx) {
     const progId = tx.transaction.message.instructions.at(-1).programId.toBase58();
@@ -69,9 +69,11 @@ export async function getCollectionsStats(creators) {
         try {
             const { data: token } = await get(`${ME_API}/tokens/${mint}`);
             sleep(1000 / requestsPerSecond);
-            const { data: stats } = await get(`${ME_API}/collections/${token.collection}/stats`);
-            sleep(1000 / requestsPerSecond);
-            collections.set(creator, lamportsToSol(stats));
+            if (token && token.collection) {
+                const { data: stats } = await get(`${ME_API}/collections/${token.collection}/stats`);
+                sleep(1000 / requestsPerSecond);
+                collections.set(creator, lamportsToSol(stats));
+            }
         }
         catch (e) {
             log.error(e, getCollectionsStats);
@@ -153,7 +155,6 @@ function isSolanartPurchaseTx(tx) {
 function lamportsToSol(stats) {
     const metrics = ['floorPrice', 'avgPrice24hr', 'volumeAll'];
     for (const name of metrics) {
-        v
         if (stats[name]) {
             stats[name] = stats[name] / LAMPORTS_PER_SOL
         }

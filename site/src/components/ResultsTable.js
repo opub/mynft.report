@@ -5,7 +5,6 @@ export default function ResultsTable(props) {
     if(nfts) {
         return (
             <table>
-                <caption>My NFTs</caption>
                 <thead>
                     <tr>
                     <th>Image</th>
@@ -16,7 +15,7 @@ export default function ResultsTable(props) {
                 <tbody>
                     {nfts.map(nft => (
                         <tr key={nft.mint}>
-                            <td><img src={nft.image} height="50px" width="50px" /></td>
+                            <td><img src={nft.image} height="50px" width="50px" loading="lazy"/></td>
                             <td>{nft.name}</td>
                             <td>{nft.description}</td>
                         </tr>

@@ -28,3 +28,15 @@ variable "domain" {
   type        = string
   default     = "proxy.mynft.report"
 }
+
+variable "path" {
+  description = "The path portion of the requested URL to map to proxy (e.g. /api)"
+  type        = string
+  default     = "/api"
+}
+
+variable "target" {
+  description = "The target URL that proxy requests will be forwarded to (e.g. https://example.com/)"
+  type        = string
+  default     = "https://api-mainnet.magiceden.dev/v2"
+}

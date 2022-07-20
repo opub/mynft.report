@@ -7,7 +7,7 @@ resource "aws_apigatewayv2_api" "gateway" {
 }
 
 resource "aws_apigatewayv2_stage" "gateway" {
-  api_id = aws_apigatewayv2_api.gateway.id
+  api_id      = aws_apigatewayv2_api.gateway.id
   name        = "${var.prefix}gateway"
   auto_deploy = true
 
@@ -31,7 +31,7 @@ resource "aws_apigatewayv2_stage" "gateway" {
 }
 
 resource "aws_apigatewayv2_integration" "gateway" {
-  api_id = aws_apigatewayv2_api.gateway.id
+  api_id             = aws_apigatewayv2_api.gateway.id
   integration_uri    = aws_lambda_function.proxy.invoke_arn
   integration_type   = "AWS_PROXY"
   integration_method = "POST"
@@ -44,14 +44,15 @@ resource "aws_apigatewayv2_api_mapping" "gateway" {
 }
 
 resource "aws_apigatewayv2_route" "gateway" {
-  api_id = aws_apigatewayv2_api.gateway.id
-  route_key = "GET /api"
+  api_id    = aws_apigatewayv2_api.gateway.id
+  route_key = "$default"
   target    = "integrations/${aws_apigatewayv2_integration.gateway.id}"
 }
 
 resource "aws_cloudwatch_log_group" "gateway" {
-  name = "/aws/api_gw/${aws_apigatewayv2_api.gateway.name}"
-  retention_in_days = 30
+  name              = "/aws/api_gw/${aws_apigatewayv2_api.gateway.name}"
+  retention_in_days = 14
+  tags              = { "Name" = "${var.prefix}gateway" }
 }
 
 resource "aws_lambda_permission" "gateway" {
@@ -59,5 +60,5 @@ resource "aws_lambda_permission" "gateway" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.proxy.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn = "${aws_apigatewayv2_api.gateway.execution_arn}/*/*"
+  source_arn    = "${aws_apigatewayv2_api.gateway.execution_arn}/*/*"
 }
